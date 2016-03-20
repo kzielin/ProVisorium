@@ -1,0 +1,26 @@
+/* techniczne */
+.ui-widget { font-size: 0.9em !important; }
+
+.d0 { background-color: #eee; }
+.d1 { background-color: #eee; }
+.d2 { background-color: #eee; }
+
+.space { padding: 10px; }
+.mspace { margin: 20px; }
+.right { text-align: right; }
+.left { text-align: left; }
+.fr { float: right; }
+.fl { float: left; }
+.clr { clear: both; }
+.hide { display: none; }
+.center { text-align: center; }
+.dtxt { color: gray; }
+.stxt { font-size: 0.8em; }
+.mono { font-family: monospace }
+.top { vertical-align: top; }
+.wide { width: 100%; }
+.ohix { overflow-x: hidden; }
+.air { opacity: 0; filter:alpha(opacity=0); }
+.fly { position: absolute; }
+.href { cursor: pointer; cursor: hand; }
+.ui-icon-inline { display: inline-block !important; vertical-align: bottom; }
