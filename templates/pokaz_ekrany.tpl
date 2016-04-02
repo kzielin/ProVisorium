@@ -28,7 +28,7 @@
             </div>
          </td>
          <td class="appear">
-            <a href="pokaz/ekran/{$item.id}">
+            <a href="/pokaz/ekran/{$item.id}">
                <button type="button">
                   <span class="ui-icon ui-icon-pencil"></span>
                   edytuj

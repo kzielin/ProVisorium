@@ -1,7 +1,7 @@
 RewriteEngine On
 
 
-RewriteCond %{REQUEST_URI} .*gif$|.*png$|.jpg$|.jpeg$|.ico$|.cur|.bmp|.html [NC]
+RewriteCond %{REQUEST_URI} \.png|\.jpg|\.gif|\.ico|\.html|\.css|\.js|\.map [NC]
 RewriteCond %{REQUEST_FILENAME} !-s
 RewriteRule (.*)$ $1 [NC,L]
 
@@ -13,4 +13,4 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
 
 
-RewriteRule ^.*$ index.php [NC,L] 
+RewriteRule ^.*$ index.php [NC,L]

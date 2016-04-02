@@ -2,54 +2,58 @@
 
 <div class="ui-corner-all content">
    <h2>Dostępne pokazy:</h2>
-
-   <table>
+   <div class="container-fluid">
       {foreach from=$listaPokazow item="pokaz"}
-      <form method=post onSubmit="return confirm('Czy na pewno wykonać operację?');">
-      <input type=hidden name=showId value="{$pokaz.id}">
-      <tr class="appear hover">
-         <td ondblclick="$(this).children('[role=show]').hide();$(this).children('[role=edit]').show();">
-            <div role="show" class="inline">
-               {$pokaz.name}
+         <form method=post onSubmit="return confirm('Czy na pewno wykonać operację?');">
+         <input type=hidden name=showId value="{$pokaz.id}">
+         <div class="row appear hover">
+            <div class="col-sm-6" ondblclick="$(this).children('[role=show]').hide();$(this).children('[role=edit]').show();">
+               <div role="show" class="inline">
+                  {$pokaz.name}
+               </div>
+               <div role="edit" class="hide">
+                  <input type="text" name="newName" value="{$pokaz.name}" style="width: 80%;" class="fl">
+                  <button type="submit" name="act" value="ren" class="fr">
+                     <span class="ui-icon ui-icon-disk"></span>
+                  </button>
+               </div>
             </div>
-            <div role="edit" class="hide">
-               <input type="text" name="newName" value="{$pokaz.name}" style="width: 80%;" class="fl">
-               <button type="submit" name="act" value="ren" class="fr">
-                  <span class="ui-icon ui-icon-disk"></span>
+            <div class="appear col-sm-6">
+               <a href="/pokaz/uruchom/{$pokaz.id}" class="btn btn-default">
+                  <span class="glyphicon glyphicon-play"></span>
+                  uruchom
+               </a>
+               {if $rola >= $R_MASTER}
+               <a href="/pokaz/edytuj/{$pokaz.id}" class="btn btn-default">
+                     <span class="glyphicon glyphicon-edit"></span>
+                     edytuj
+               </a>
+               <button name="act" value="del" type="submit" class="btn btn-danger">
+                  <span class="glyphicon glyphicon-remove"></span>
+                  usuń
                </button>
+               {/if}
             </div>
-         </td>
-         <td class="appear">
-            <a href="pokaz/uruchom/{$pokaz.id}" title="uruchom">
-               <button type="button">
-                  <span class="ui-icon ui-icon-play"></span>
-               </button>
-            </a>
-            {if $rola >= $R_MASTER}
-            <a href="pokaz/edytuj/{$pokaz.id}">
-               <button type="button">
-                  <span class="ui-icon ui-icon-pencil"></span>
-                  edytuj
-               </button>
-            </a>
-            <button name="act" value="del" type="submit" title="usuń">
-               <span class="ui-icon ui-icon-trash"></span>
-            </button>
-            {/if}
-         </td>
-      </tr>
-      </form>
+         </div>
+         </form>
       {/foreach}
       {if $rola >= $R_MASTER}
-      <tr class="hover appear">
+      <div class="row hover appear">
          <form method=post onSubmit="return $('#showName').val().length > 0"> 
-         <input type=hidden name=act value=add>
-         <td class="appear"><input type=text name=showName id=showName size=40></td>
-         <td class="appear"><button><span class="ui-icon ui-icon-plus"></span>dodaj nowy</button></td>
+            <input type=hidden name=act value=add>
+            <div class="col-sm-6 appear">
+               <input type=text name=showName id=showName size=40>
+            </div>
+            <div class="col-sm-6 appear">
+               <a onclick="$(this).closest('form').submit()" class="btn btn-default" type="submit">
+                  <span class="glyphicon glyphicon-plus"></span>
+                  dodaj nowy
+               </a>
+            </div>
          </form>
-      </tr>
+      </div>
       {/if}
-   </table>
+   </div>
  
    
 </div>

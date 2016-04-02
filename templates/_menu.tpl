@@ -1,22 +1,22 @@
 <div class="leftMenu"> 
 
    <ul class="ui-corner-all">
-      <li><a class="block" href="pokaz/lista">pokazy</a></li>
+      <li><a class="block" href="/pokaz/lista">pokazy</a></li>
       {if $rola >= $R_MASTER}
-         <li><a class="block" href="komponenty">komponenty</a></li>
+         <li><a class="block" href="/komponenty">komponenty</a></li>
       {/if}
       {if $rola >= $R_ADMIN}
-         <li><a class="block" href="logowanie/listaUzytkownikow">użytkownicy</a></li>
+         <li><a class="block" href="/logowanie/listaUzytkownikow">użytkownicy</a></li>
       {/if}
    </ul>
    <ul class="ui-corner-all">
-      <li><a href="logowanie/zmianaHasla">zmiana hasła</a></li>
-      <li><a href="logowanie/wyloguj">wyloguj</a></li>
+      <li><a href="/logowanie/zmianaHasla">zmiana hasła</a></li>
+      <li><a href="/logowanie/wyloguj">wyloguj</a></li>
    </ul>
    {if $addons|contains:'file2base64'}
    <ul class="ui-corner-all ohix">
       <span class="dtxt stxt">osadź obrazek w css</span>
-      <form method="post" target="_blank" action="komponenty/file2base64" enctype="multipart/form-data">
+      <form method="post" target="_blank" action="/komponenty/file2base64" enctype="multipart/form-data">
       <input type="file" name="image" onchange="$(this).closest('form').submit();">
       </form>
    </ul>

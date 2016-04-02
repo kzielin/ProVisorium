@@ -17,14 +17,14 @@
             <button name="act" value="del" type="submit" title="usuń">
                <span class="ui-icon ui-icon-trash"></span>
             </button>
-            <a href="logowanie/zmianaHasla/{$item.login}">
+            <a href="/logowanie/zmianaHasla/{$item.login}">
                <button type="button">
                   <span class="ui-icon ui-icon-key"></span>
                   zmień hasło
                </button>
             </a>
             {if $item.rola == $R_USER}
-            <a href="logowanie/uprawnienia/{$item.login}" title="wybierz pokazy dostępne dla tego loginu">
+            <a href="/logowanie/uprawnienia/{$item.login}" title="wybierz pokazy dostępne dla tego loginu">
                <button type="button">
                   <span class="ui-icon ui-icon-unlocked"></span>
                   uprawnienia

@@ -1,0 +1,5 @@
+database_file: db/db.sqlite
+template_dir: templates
+cache_dir: cache
+assets_dir: assets
+base_href: /

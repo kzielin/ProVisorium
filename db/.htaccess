@@ -1,3 +1,0 @@
-<Files "*.sqlite">
-deny from all
-</Files>

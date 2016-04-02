@@ -21,7 +21,7 @@
             <button name="act" value="del" type="submit" title="usuń">
                <span class="ui-icon ui-icon-trash"></span>
             </button>
-            <a href="komponenty/edytuj/{$item.id}">
+            <a href="/komponenty/edytuj/{$item.id}">
                <button type="button" title="edycja">
                   <span class="ui-icon ui-icon-pencil"></span>
                </button>

@@ -1,6 +1,6 @@
 <map name="screenMap">
 {foreach from=$areas item="link"}
-<area href="show/{$projekt}/{$link.href}"
+<area href="/show/{$projekt}/{$link.href}"
    onclick="window.location='show/{$projekt}/{$link.href}" 
    alt="{$link.nazwa}" 
    title="{$link.nazwa}" 
