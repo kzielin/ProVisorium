@@ -1,6 +1,6 @@
 {
     "autoload": {
-        "psr-0": { "": "app/" },
+        "psr-0": { "": "app/" }
     },
     "require": {
         "smarty/smarty": "^3.1",
