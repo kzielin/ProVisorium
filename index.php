@@ -37,6 +37,7 @@ $uprawnienia = [
 ];
 
 /* widok */
+/** @var Renderer $smarty */
 $smarty = new Renderer();
    /* konfiguracja widoku */
    $smarty
