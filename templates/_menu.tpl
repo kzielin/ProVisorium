@@ -1,13 +1,13 @@
 <div class="leftMenu"> 
 
    <ul class="ui-corner-all">
-      <li><a class="block" href="/pokaz/lista">pokazy</a></li>
-   </ul>
-   <ul class="ui-corner-all">
       {if $rola >= $R_MASTER}
          <li><a class="block" href="/motywy">motywy</a></li>
          <li><a class="block" href="/komponenty">komponenty</a></li>
       {/if}
+   </ul>
+   <ul class="ui-corner-all">
+      <li><a class="block" href="/pokaz/lista">pokazy</a></li>
    </ul>
    <ul class="ui-corner-all">
       {if $rola >= $R_ADMIN}

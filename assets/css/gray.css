@@ -1,7 +1,10 @@
 html {margin: 0;padding: 0;}
 
+* {
+   font-family: Lato, Arial, Helvetica, sans-serif;
+}
+
 body {
-    font-family: Lato, Arial, Helvetica, sans-serif;
     background-color: gray;
     margin: 5px;
     padding: 5px;
@@ -120,42 +123,4 @@ span.icon-active:hover{ border: 1px solid black; }
 
 table.lista td, table.lista th {
    padding: 0 15px;
-}
-
-/* układanie formatki */
-img.iconHolder {
-   padding: 1px;
-   cursor:pointer; cursor: hand;
-   border: 1px solid transparent;
-}
-img.iconHolder:hover { border: 1px solid gray; }
-
-img.iconHolderSelected {
-   background-color: gray;
-}
-
-div.screenHolder {
-   border: 1px dashed gray;
-   background-color: white;
-   min-height: 400px;
-}
-
-div.screenHolder > div.elementHolder:hover{
-   border: 1px dashed #ddd;
-}
-div.screenHolder > div.elementHolder {
-   border: 1px dashed transparent;
-}
-
-div.screenHolder > div.elementHolder  > .pv-movable-handle {
-	display:none;
-	position: absolute;
-	width: 16px;
-	height: 16px;
-	border: 1px dashed gray;
-	background-color: white;
-	opacity: 0.5;
-	z-index:999;
-	margin-top: -8px;
-	margin-left: -8px;
 }

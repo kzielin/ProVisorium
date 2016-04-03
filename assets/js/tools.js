@@ -10,12 +10,9 @@ $(document).ready(function() {
    $("textarea.autoheight")
       .css('height','auto')
       .css('overflow-y','hidden')
-      .data('maxrows', function(){
-         return parseInt($(this).data('maxrows')) > 0 ? $(this).data('maxrows') : 30;
-      })
       .keyup(function(){
          while (this.scrollHeight > this.clientHeight && $(this).css('overflow-y') == 'hidden') {
-            if (this.rows < $(this).data('maxrows')) this.rows = this.rows + 1;
+            if (this.rows < $(this).data('maxrows') || 30) this.rows = this.rows + 1;
             else $(this).css('overflow-y','scroll');
          }
       })

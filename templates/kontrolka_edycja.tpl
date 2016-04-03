@@ -1,6 +1,12 @@
 {include file="_menu.tpl" addons="file2base64"}
 
 <div class="ui-corner-all content">
+   <a href="/"><span class="ui-icon ui-icon-home pull-left" style="margin-top:2px"></span></a> >
+   <a href="/komponenty">komponenty</a> >
+   <a href="/komponenty/edytuj/{$component.id}">{$component.name}</a>
+</div>
+
+<div class="ui-corner-all content">
    <h2>Edycja komponentu {$component.name}:</h2>
    <form method="post">
       <button type="submit">
