@@ -8,18 +8,18 @@
 </div>
 
 <style type="text/css">
-{foreach from=$kontrolki item="kontrolka"}
-div.component_{$kontrolka.name|urlencode} {ldelim}
-   {$kontrolka.css}
-{rdelim}
-{/foreach}
+   {foreach from=$kontrolki item="kontrolka"}
+   div.component_{$kontrolka.name|urlencode} {ldelim}
+      {$kontrolka.css}
+   {rdelim}
+   {/foreach}
 </style>
 <script type="text/javascript">
-{foreach from=$kontrolki item="kontrolka"}
-$(".component_{$kontrolka.name|urlencode}").each(function() {ldelim}
-{$kontrolka.js}
-{rdelim}
-{/foreach}
+   {foreach from=$kontrolki item="kontrolka"}
+   $(".component_{$kontrolka.name|urlencode}").each(function() {ldelim}
+   {$kontrolka.js}
+   {rdelim}
+   {/foreach}
 </script>
 <div class="ui-corner-all content" style="height:100%;">
    <h2>{$nazwaEkranu} ({$pokaz.name})</h2>

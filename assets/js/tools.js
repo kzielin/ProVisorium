@@ -82,13 +82,19 @@ function screenHolderClick(e, ob) {
                      +window.atob(compo.data('html'))+'</div>');
       $(ob).append(newOb);
       var of = $('.screenHolder:first').offset();
-      x = x - (x % 10) + 5 + of.left;
-      y = y - (y % 10) + 5 + of.top;
+      x = x - (x % 10);
+      y = y - (y % 10);
       newOb
          .addClass('elementHolder component_'+compo.attr('title'))
+         .css({ left: x, top: y })
          .attr('id', 'el'+window.nrE)
-         .resizable()
-         .draggable({ handle: '.pv-movable-handle' })
+         .resizable({
+             grid: 10
+         })
+         .draggable({
+             handle: '.pv-movable-handle',
+             grid: [ 10, 10 ]
+         })
          .hover(
 				function(){ $(this).find('.pv-movable-handle').show() },
 				function(){ $(this).find('.pv-movable-handle').hide() }
