@@ -66,7 +66,7 @@ button.disabled, button.disabled:hover, button.disabled:active , button:disabled
    box-shadow:         none !important;
 }
 
-button .ui-icon { float: left !important; border: none !important; }
+button .ui-icon { float: left !important; border: none !important; margin-top: 2px; }
 button .ui-icon:hover { border: none !important; }
 
 button.wcisniety {
@@ -89,9 +89,9 @@ input, select, textarea { border: 1px solid gray; }
 input[type=file] { border: none; color: white; }
 input.bad { background-color: #fee; }
 a,a:visited { color: #111; text-decoration: none; }
-a:hover { color: #000; }
+a:hover { color: #000; text-decoration: none;}
 
-.leftMenu  { width: 150px; float: left; }
+.leftMenu  { width: 150px; position: fixed; }
 .leftMenu ul { padding: 10px 0 10px 20px; background-color: #eee; margin: 0 0 10px 0; }
 .leftMenu ul  li { list-style: none; margin: 5px 0; }
 
@@ -118,6 +118,9 @@ span.icon-active:hover{ border: 1px solid black; }
 .appear .appear { opacity: 1; }
 .appear:hover .appear, .appearFocus .appear { opacity: 1 !important; }
 
+table.lista td, table.lista th {
+   padding: 0 15px;
+}
 
 /* układanie formatki */
 img.iconHolder {

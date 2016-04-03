@@ -25,3 +25,4 @@ class Renderer extends Smarty
         }
     }
 }
+

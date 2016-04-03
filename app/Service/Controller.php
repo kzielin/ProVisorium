@@ -1,7 +1,7 @@
 <?php
 namespace Service;
+
 use Exception;
-use Smarty;
 
 class Controller
 {
@@ -10,7 +10,7 @@ class Controller
    var $template;
    var $noRender;
    /**
-    * @var Smarty $view
+    * @var Renderer $view
     */
    var $view;
    /**
@@ -20,14 +20,14 @@ class Controller
 
    /**
     * Controller constructor.
-    * @param Smarty $view
+    * @param Renderer $renderer
     * @param array $config
     */
-   function __construct(Smarty $view, $config)
+   function __construct(Renderer $renderer, $config)
 	{
        $this->args = new Args();
        $this->login = Login::getInstance();
-       $this->view = $view;
+       $this->view = $renderer;
        $this->config = $config;
     }
 

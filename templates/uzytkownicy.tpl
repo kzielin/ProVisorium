@@ -16,6 +16,7 @@
          <td class="appear">
             <button name="act" value="del" type="submit" title="usuń">
                <span class="ui-icon ui-icon-trash"></span>
+               &nbsp;
             </button>
             <a href="/logowanie/zmianaHasla/{$item.login}">
                <button type="button">

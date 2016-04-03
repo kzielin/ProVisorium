@@ -4,7 +4,9 @@ namespace Controller;
 
 use Service\Ekran;
 use Service\Kontrolki;
+use Service\Projekt;
 use Service\RouterAbstract;
+use Service\Themes;
 
 class Pokaz extends RouterAbstract
 {
@@ -18,31 +20,23 @@ class Pokaz extends RouterAbstract
       if ($this->login->getRole() >= R_USER) {
          
          if ($_POST['act']=='ren' && !empty($_POST['newName']) && Projekt::validId($_POST['showId'])) {
-            if (Projekt::zmienNazwe($_POST['showId'], $_POST['newName']))
-               $v->message = 'Zapisano zmiany';
-            else
-               $v->warning = 'Nie udało się zapisać zmian ';
+            $v->messageWarning(Projekt::zmienNazwe($_POST['showId'], $_POST['newName']), 'Zapisano zmiany','Nie udało się zapisać zmian ');
          }
          
          if ($_POST['act']=='add' && !empty($_POST['showName'])) {
-            if (Projekt::dodaj($_POST['showName'])) 
-               $v->message = 'Dodano pokaz';
-            else
-               $v->warning = 'Nie udało się dodać pokazu ';
+            $v->messageWarning(Projekt::dodaj($_POST['showName'], $_POST['theme']),'Dodano pokaz','Nie udało się dodać pokazu ');
          }
          
          if ($_POST['act']=='del' && Projekt::validId($_POST['showId'])) {
-            if (Projekt::usun($_POST['showId']))
-               $v->message = 'Usunięto pokaz';
-            else
-               $v->warning = 'Nie udało się usunąć pokazu ';
+            $v->messageWarning(Projekt::usun($_POST['showId']),'Usunięto pokaz','Nie udało się usunąć pokazu ');
          }
       }
    }
    
    function lista() {
       $v = $this->view;
-      $v->listaPokazow = Projekt::lista( $this->login->getRole() >= R_MASTER ? null : $this->login->getLogin());   
+      $v->assign('listaPokazow',Projekt::lista( $this->login->getRole() >= R_MASTER ? null : $this->login->getLogin()));
+      $v->assign('themes', Themes::all());
       $this->controller->setTemplate('pokaz_lista');
    }
 
@@ -54,31 +48,18 @@ class Pokaz extends RouterAbstract
       if ($this->login->getRole() >= R_USER) {
       
          if ($_POST['act']=='add' && !empty($_POST['screenName'])) {
-            if (Projekt::dodajEkran($projId,$_POST['screenName']))
-               $v->message = 'Dodano ekran';
-            else
-               $v->warning = 'Nie udało się dodać ekranu ';
+            $v->messageWarning(Projekt::dodajEkran($projId,$_POST['screenName']),'Dodano ekran','Nie udało się dodać ekranu ');
          }
          
          if ($_POST['act']=='ren' && !empty($_POST['newName'])) {
-            if (Projekt::zmienNazweEkranu($projId, $_POST['screenId'], $_POST['newName']))
-               $v->message = 'Zapisano zmiany';
-            else
-               $v->warning = 'Nie udało się zapisać zmian ';
+            $v->messageWarning(Projekt::zmienNazweEkranu($projId, $_POST['screenId'], $_POST['newName']),'Zapisano zmiany','Nie udało się zapisać zmian ');
          }
          
          if ($_POST['act']=='del') {
-            if (Projekt::usunEkran($projId, $_POST['screenId']))
-               $v->message = 'Usunięto ekran';
-            else
-               $v->warning = 'Nie udało się usunąć ekranu ';
+            $v->messageWarning(Projekt::usunEkran($projId, $_POST['screenId']),'Usunięto ekran','Nie udało się usunąć ekranu ');
          }
          if (!isset($_POST['act'])) {
-            if (Projekt::ustawEkran($projId, $_POST['screenId']))
-               $v->message = 'Zapisano zmiany';
-            else
-               $v->warning = 'Nie udało się zapisać zmian ';
-            
+            $v->messageWarning(Projekt::ustawEkran($projId, $_POST['screenId']),'Zapisano zmiany','Nie udało się zapisać zmian ');
          }
       }
    
@@ -89,11 +70,11 @@ class Pokaz extends RouterAbstract
       $v = $this->view;
       
       if ($this->login->getRole() >= R_MASTER) {
-         $v->pokaz = array(
+         $v->assign('pokaz', [
             'id' => $this->args->get(2),
             'name' => Projekt::getName($this->args->get(2)),
-         );
-         $v->listaEkranow = Projekt::getEkrany($this->args->get(2));
+         ]);
+         $v->assign('listaEkranow', Projekt::getEkrany($this->args->get(2)));
       } else $this->controller->redirect();
    
    }
@@ -101,7 +82,7 @@ class Pokaz extends RouterAbstract
    function ekran() {
       $this->controller->setTemplate('pokaz_ekran');
       $v = $this->view;
-      $v->kontrolki = Kontrolki::lista();
-      $v->nazwaEkranu = Ekran::getName($this->args->get(2));
+      $v->assign('kontrolki', Kontrolki::lista());
+      $v->assign('nazwaEkranu', Ekran::getName($this->args->get(2)));
    }
 }

@@ -3,17 +3,22 @@ namespace Service;
 class Kontrolki
 {
    const initIcon = 'iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wCBRAuGg51hoAAAAAMaVRYdENvbW1lbnQAAAAAALyuspkAAAD2SURBVFjD7dW/SoMxFIbxXwvq4CIuXaSbg5ubs6irF+Do6CZ4CcXbEPQiXBUXBRGhTuKum4gFFcS6fMPhE/zXfgliXghkCHkekpMTSv5gFrGLI9ziBQNc4wBrTYFXcIbhN8YhZsctMPzhOMdUEwI36GEVHUyii3Wc1CR2xilwXEE/Swt7QeAiR5F2g8Dgq8XtBgQew/w1h8B2mPdTHv1E1R9iEW6mgi/gqgY/beiEP2QZ9zX4HeZSwJfwVIP3MZ8CPlP9BRG+j+lU994L4GdspG44l0FgK0fHewgCnRwCb0Hg18+tNeLvOPI+bSX/PaUIi0BJ9rwDdORXdL0zYJsAAAAASUVORK5CYII=';
-	function __construct()
-	{
-	}
-   
+
+   function __construct()
+   {
+   }
+
    static function lista()
    {
       $db = Db::getInstance();
       return Db::fetch_all($db->query("SELECT * FROM components ORDER BY name"));
    }
-   
-   static function add($name, $html = '', $css = '', $js = '', $props = array())
+
+   static function simpleAdd($name, $theme) {
+      return self::add($name, '', '', '', [], $theme);
+   }
+
+   static function add($name, $html = '', $css = '', $js = '', $props = array(), $theme = 1)
    {
       $db = Db::getInstance();
       $name = Db::escape($name);
@@ -22,7 +27,8 @@ class Kontrolki
       $js = Db::escape($js);
       $props = json_encode($props);
       $icon = self::initIcon;
-      $db->exec("INSERT INTO components (name, html, css, js, props, icon) VALUES ( '$name', '$html', '$css', '$js', '$props', '$icon');");
+      $theme = (int)$theme;
+      $db->exec("INSERT INTO components (name, html, css, js, props, icon, theme) VALUES ( '$name', '$html', '$css', '$js', '$props', '$icon', $theme);");
       return $db->changes();
    }
    
