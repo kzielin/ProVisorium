@@ -98,7 +98,7 @@ a:hover { color: #000; text-decoration: none;}
 .message { width: 100%; text-align: center; position: absolute; top: 0; left: 0; right: 0;}
 .message  div { margin: 0 auto; background-color: #efe; padding: 5px 15px; display: inline; font-weight: bold;}
 .warning { margin: 0 0 10px 160px; background-color: #fee; padding: 5px 10px 10px; text-align: center;}
-.content { margin-left: 160px; background-color: #eee; padding: 5px 10px 10px; }
+.content { margin: 0 0 10px 160px; background-color: #eee; padding: 5px 10px 10px; }
 .show { background-color: #eee; padding: 5px 10px 30px; }
 button .ui-icon { float: left; }
 h2 { border-bottom: 1px solid black; } 

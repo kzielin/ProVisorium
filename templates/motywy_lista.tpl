@@ -3,7 +3,7 @@
 <div class="ui-corner-all content">
    <h2>Dostępne motywy:</h2>
    <div class="container-fluid">
-      <div class="row">
+      <div class="row btxt">
          <div class="col-sm-4">nazwa</div>
          <div class="col-sm-2">rozmiar płótna</div>
          <div class="col-sm-6">akcje</div>

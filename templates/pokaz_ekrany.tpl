@@ -1,6 +1,12 @@
 {include file="_menu.tpl"}
 
 <div class="ui-corner-all content">
+   <a href="/"><span class="ui-icon ui-icon-home pull-left" style="margin-top:2px"></span></a> >
+   <a href="/pokaz/lista">lista pokazów</a> >
+   <a href="/pokaz/edytuj/{$pokaz.id}">pokaz: {$pokaz.name}</a>
+</div>
+
+<div class="ui-corner-all content">
    <h2>Ekrany w ramach pokazu: {$pokaz.name}</h2>
 
    <table>

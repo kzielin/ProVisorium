@@ -16,6 +16,7 @@
 .center { text-align: center; }
 .dtxt { color: gray; }
 .stxt { font-size: 0.8em; }
+.btxt { font-weight: bold;}
 .mono { font-family: monospace }
 .top { vertical-align: top; }
 .wide { width: 100%; }

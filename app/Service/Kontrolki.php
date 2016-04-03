@@ -8,10 +8,11 @@ class Kontrolki
    {
    }
 
-   static function lista()
+   static function lista($theme = 0)
    {
       $db = Db::getInstance();
-      return Db::fetch_all($db->query("SELECT * FROM components ORDER BY name"));
+      $theme = (int)$theme;
+      return Db::fetch_all($db->query("SELECT * FROM components WHERE $theme in (0,theme) ORDER BY name"));
    }
 
    static function simpleAdd($name, $theme) {

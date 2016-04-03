@@ -82,7 +82,12 @@ class Pokaz extends RouterAbstract
    function ekran() {
       $this->controller->setTemplate('pokaz_ekran');
       $v = $this->view;
-      $v->assign('kontrolki', Kontrolki::lista());
+      $projectId = Ekran::getProjectId($this->args->get(2));
+      $pokaz = Projekt::get($projectId);
+      $v->assign('pokaz', $pokaz);
+      $v->assign('theme', Themes::get($pokaz['theme']));
+      $v->assign('kontrolki', Kontrolki::lista($pokaz['theme']));
+      $v->assign('idEkranu', $this->args->get(2));
       $v->assign('nazwaEkranu', Ekran::getName($this->args->get(2)));
    }
 }

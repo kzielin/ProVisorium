@@ -3,6 +3,11 @@
 <div class="ui-corner-all content">
    <h2>Dostępne pokazy:</h2>
    <div class="container-fluid">
+      <div class="row btxt">
+         <div class="col-sm-4">nazwa</div>
+         <div class="col-sm-2">motyw</div>
+         <div class="col-sm-6">akcje</div>
+      </div>
       {foreach from=$listaPokazow item="pokaz"}
          <form method="post" onSubmit="return confirm('Czy jesteś pewien?');">
          <input type=hidden name=showId value="{$pokaz.id}">

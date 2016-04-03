@@ -93,4 +93,12 @@ class Projekt
       $db->exec("UPDATE screens SET isMain = (id = $screenId) WHERE projectId = $projectId");
       return $db->changes();
    }
+
+   public static function get($projectId)
+   {
+      $db = Db::getInstance();
+      if (!self::validId($projectId)) return false;
+      $r = $db->query("SELECT * FROM projects WHERE id = '$projectId'");
+      return Db::fetch_row($r);
+   }
 }
