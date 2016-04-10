@@ -10,12 +10,9 @@ $(document).ready(function() {
    $("textarea.autoheight")
       .css('height','auto')
       .css('overflow-y','hidden')
-      .data('maxrows', function(){
-         return parseInt($(this).data('maxrows')) > 0 ? $(this).data('maxrows') : 30;
-      })
       .keyup(function(){
          while (this.scrollHeight > this.clientHeight && $(this).css('overflow-y') == 'hidden') {
-            if (this.rows < $(this).data('maxrows')) this.rows = this.rows + 1;
+            if (this.rows < $(this).data('maxrows') || 30) this.rows = this.rows + 1;
             else $(this).css('overflow-y','scroll');
          }
       })
@@ -85,13 +82,19 @@ function screenHolderClick(e, ob) {
                      +window.atob(compo.data('html'))+'</div>');
       $(ob).append(newOb);
       var of = $('.screenHolder:first').offset();
-      x = x - (x % 10) + 5 + of.left;
-      y = y - (y % 10) + 5 + of.top;
+      x = x - (x % 10);
+      y = y - (y % 10);
       newOb
          .addClass('elementHolder component_'+compo.attr('title'))
+         .css({ left: x, top: y })
          .attr('id', 'el'+window.nrE)
-         .resizable()
-         .draggable({ handle: '.pv-movable-handle' })
+         .resizable({
+             grid: 10
+         })
+         .draggable({
+             handle: '.pv-movable-handle',
+             grid: [ 10, 10 ]
+         })
          .hover(
 				function(){ $(this).find('.pv-movable-handle').show() },
 				function(){ $(this).find('.pv-movable-handle').hide() }

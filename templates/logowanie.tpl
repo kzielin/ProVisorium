@@ -9,14 +9,27 @@
       <li>Użytkownik - login:test hasło:test</li>
    </div>
 </div>
-<div style="width: 200px; margin: 100px auto;" class="right d2 space ui-corner-all">
-   <form method="post" action="">
-      login: <input type="text" name="login" id="login_field">
-      hasło: <input type="password" id="pass_field" name="pass">
-      <button>
+<div style="width: 250px; margin: 100px auto;" class="center d2 space ui-corner-all">
+   <form method="post" action="" class="form-horizontal" >
+
+      <div class="form-group">
+         <label for="login_field" class="col-sm-2 control-label">login</label>
+         <div class="col-sm-10">
+            <input type="text" name="login" id="login_field">
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="pass_field" class="col-sm-2 control-label">hasło</label>
+         <div class="col-sm-10">
+            <input type="password" id="pass_field" name="pass">
+         </div>
+      </div>
+
+      <button type="submit">
          <span class="ui-icon ui-icon-check"></span>
          zaloguj
       </button>
+
    </form>
 </div>
 <script type="text/javascript">

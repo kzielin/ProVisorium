@@ -20,4 +20,9 @@ class Ekran
       if (!self::validId($id)) return false;
       return $db->querySingle("SELECT name FROM screens WHERE id = '$id'");
    }
+    static function getProjectId($id) {
+        $db = Db::getInstance();
+        if (!self::validId($id)) return false;
+        return $db->querySingle("SELECT projectId FROM screens WHERE id = '$id'");
+    }
 }

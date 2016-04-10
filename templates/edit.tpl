@@ -41,6 +41,7 @@
 
             <button name=act value=del title="usuń">
                <span class="ui-icon ui-icon-trash"></span>
+               &nbsp;
             </button>
          </td>
       </tr>

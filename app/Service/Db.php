@@ -18,6 +18,13 @@ class Db
    public static function escape ($txt) {
       return SQLite3::escapeString($txt);
    }
+   public static function fetch_row(SQLite3Result $res, $type = SQLITE3_ASSOC) {
+      $ret = array();
+      if ($res)
+         while($row = $res->fetchArray($type))
+            return $row;
+      return $ret;
+   }
    public static function fetch_all(SQLite3Result $res, $type = SQLITE3_ASSOC) {
       $ret = array();
       if ($res) 

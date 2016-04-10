@@ -2,9 +2,9 @@
 
 namespace Controller;
 
-
 use Service\Kontrolki;
 use Service\RouterAbstract;
+use Service\Themes;
 
 class Komponenty extends RouterAbstract
 {
@@ -16,23 +16,20 @@ class Komponenty extends RouterAbstract
       $v = $this->view;
       if ($_POST['act'] == 'add' && !empty($_POST['newName']))
       {
-         if (Kontrolki::add($_POST['newName']))
-            $v->message = 'Dodano komponent';
-         else
-            $v->warning = 'Nie udało się dodać komponentu ';
+         $v->messageWarning(Kontrolki::simpleAdd($_POST['newName'], $_POST['theme']),
+             'Dodano komponent','Nie udało się dodać komponentu ');
       }
       if ($_POST['act'] == 'del' && is_numeric($_POST['id']))
       {
-         if (Kontrolki::del($_POST['id']))
-            $v->message = 'Usunięto komponent';
-         else
-            $v->warning = 'Nie udało się usunąć komponentu ';
+         $v->messageWarning(Kontrolki::del($_POST['id']),
+             'Usunięto komponent', 'Nie udało się usunąć komponentu ');
       }
 
    }
    function lista() {
       $v = $this->view;
-      $v->lista = Kontrolki::lista();
+      $v->assign('lista', Kontrolki::lista());
+      $v->assign('themes', Themes::all());
    }
    
    function edytujDo() {

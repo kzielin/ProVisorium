@@ -1,12 +1,18 @@
 {include file="_menu.tpl"}
 
 <div class="ui-corner-all content">
+   <a href="/"><span class="ui-icon ui-icon-home pull-left" style="margin-top:2px"></span></a> >
+   <a href="/pokaz/lista">lista pokazów</a> >
+   <a href="/pokaz/edytuj/{$pokaz.id}">pokaz: {$pokaz.name}</a>
+</div>
+
+<div class="ui-corner-all content">
    <h2>Ekrany w ramach pokazu: {$pokaz.name}</h2>
 
    <table>
       {foreach from=$listaEkranow item="item"}
-      <form method=post onSubmit="return confirm('Czy na pewno wykonać operację?');" id="f{$item.id}">
-      <input type=hidden name=screenId value="{$item.id}">
+      <form method="post" id="f{$item.id}" onSubmit="return confirm('Czy jesteś pewien?');">
+      <input type="hidden" name="screenId" value="{$item.id}">
       <tr class="appear hover">
          <td style="width:20px;">
             {if $item.isMain}
@@ -16,11 +22,11 @@
                   onclick="$('#f{$item.id}').submit();" />
             {/if}
          </td>
-         <td ondblclick="$(this).children('[role=show]').hide();$(this).children('[role=edit]').show();">
+         <td ondblclick="$(this).find('[role=show]').hide();$(this).find('[role=edit]').show();">
             <div role="show" class="inline">
                {$item.name}
             </div>
-            <div role="edit" class="hide">
+            <div role="edit" style="display:none">
                <input type="text" name="newName" value="{$item.name}" style="width: 80%;" class="fl">
                <button type="submit" name="act" value="ren" class="fr">
                   <span class="ui-icon ui-icon-disk"></span>
@@ -28,14 +34,13 @@
             </div>
          </td>
          <td class="appear">
-            <a href="/pokaz/ekran/{$item.id}">
-               <button type="button">
+            <a href="/pokaz/ekran/{$item.id}"><button type="button">
                   <span class="ui-icon ui-icon-pencil"></span>
                   edytuj
-               </button>
-            </a>
+               </button></a>
             <button name="act" value="del" type="submit" title="usuń">
                <span class="ui-icon ui-icon-trash"></span>
+               &nbsp;
             </button>
          </td>
       </tr>

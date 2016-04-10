@@ -11,8 +11,10 @@ abstract class RouterAbstract
     /** @var Controller */
     var $controller;
 
+    /** @var Renderer $view */
     var $view;
-    public function __construct($controller)
+    
+    public function __construct(Controller $controller)
     {
         $this->args = new Args();
         $this->login = Login::getInstance();

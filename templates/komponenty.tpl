@@ -3,10 +3,16 @@
 <div class="ui-corner-all content">
    <h2>Lista komponentów:</h2>
 
-   <table>
+   <table class="lista">
+      <tr>
+         <th></th>
+         <th>nazwa</th>
+         <th>motyw</th>
+         <th>akcje</th>
+      </tr>
       {foreach from=$lista item="item"}
       <form method=post onSubmit="return confirm('Czy jesteś pewien?');">
-      
+
       <input type=hidden name=id value="{$item.id}">
       <tr class="appear hover">
          <td style="width:40px">
@@ -16,6 +22,9 @@
          </td>
          <td>
             {$item.name}
+         </td>
+         <td>
+            {$themes[$item.theme].name}
          </td>
          <td class="appear">
             <button name="act" value="del" type="submit" title="usuń">
@@ -36,6 +45,13 @@
          <td>&nbsp;</td>
          <td class="appear">
             <input type=text     name=newName   id=newName   size=50 placeholder="nazwa nowego komponentu">
+         </td>
+         <td class="appear">
+            <select name="theme">
+               {foreach $themes|@sortby:"id" as $theme}
+                  <option value="{$theme.id}">{$theme.name}</option>
+               {/foreach}
+            </select>
          </td>
          <td class="appear">
             <button>
