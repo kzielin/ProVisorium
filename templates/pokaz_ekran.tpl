@@ -26,10 +26,12 @@
    <div class="screenHolder" onClick="screenHolderClick(arguments[0], this);" style="width:{$theme.width}px; height:{$theme.height}px">
       
    </div>
-   <button type="button" disabled>
-      <span class="ui-icon ui-icon-check"></span>
-      Zapisz
-   </button>
+   <form method="post" id="saveScreenForm" onSubmit="return prepareSaveScreen()">
+      <button type="submit">
+         <span class="ui-icon ui-icon-check"></span>
+         Zapisz
+      </button>
+   </form>
 </div>
 
 <div style="clear:both"></div>

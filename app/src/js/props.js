@@ -50,7 +50,6 @@ function screenHolderClick(e, ob) {
             );
         updateDimensionProps(newOb);
         updatePositionProps(newOb);
-        newOb.click();
         window.setTimeout(function(){ $('#el' + nrE).addClass('hot'); componentClick(); }, 100);
     } else {
         hideProps();
@@ -167,6 +166,7 @@ function componentClick() {
                 success: function (data) {
                     props[componentTypeId] = data;
                     renderProps(data);
+                    rerenderHotComponent();
                 }
             });
         }
@@ -214,7 +214,7 @@ function setProp(name,value) {
 
 function updatePropField(field) {
     setProp($(field).attr('name'), $(field).val());
-    var newHTML = rerenderHotComponent();
+    rerenderHotComponent();
 }
 
 function rerenderHotComponent() {
@@ -225,7 +225,20 @@ function rerenderHotComponent() {
     $('.props-area:visible').find('input,select').each(function() {
         var key = $(this).attr('name');
         var val = $(this).val();
+        setProp(key, val);
         newHTML = newHTML.replace(new RegExp('#' + key , "g"), val);
     });
     $ob.find('.elementContent').html(newHTML);
+}
+
+function prepareSaveScreen() {
+    var $form = $('form#saveScreenForm');
+    $form.find('input').remove();
+    $('.screenHolder .elementHolder').each(function(){
+        var $input = $('<input type="hidden">');
+        $input.attr('name', 'item[' + $(this).data('nr') + ']');
+        $input.attr('value', $(this).data('type') + '|' + $(this).data('props'));
+        $form.append($input);
+    });
+    return true;
 }

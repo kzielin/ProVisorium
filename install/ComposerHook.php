@@ -11,7 +11,6 @@ use Less_Parser;
 
 class ComposerHook
 {
-
     /**
      * @var IOInterface
      */
