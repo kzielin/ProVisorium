@@ -8,12 +8,12 @@
       <form method=post onSubmit="return confirm('Czy jesteś pewien?');">
       
       <input type=hidden name=login value="{$item.login}">
-      <tr class="appear hover">
+      <tr class="hover">
          <td>
             {assign var="itemRola" value=$item.rola}
             {$item.login} <span class="dtxt">({$listaRol.$itemRola})</span>
          </td>
-         <td class="appear">
+         <td>
             <button name="act" value="del" type="submit" title="usuń">
                <span class="ui-icon ui-icon-trash"></span>
                &nbsp;
@@ -37,10 +37,10 @@
       </tr>
       </form>
       {/foreach}
-      <tr class="hover appear">
+      <tr class="hover">
          <form method=post onSubmit="return $('#newName').val().length > 0"> 
          <input type=hidden name=act value=add>
-         <td class="appear">
+         <td>
             <input type=text     name=newName   id=newName   size=15 placeholder="login">
             <input type=password name=newPasswd id=newPasswd size=15 placeholder="hasło">
             <select name=newRole>
@@ -51,7 +51,7 @@
                {/foreach}
             </select>
          </td>
-         <td class="appear"><button><span class="ui-icon ui-icon-plus"></span>dodaj nowego</button></td>
+         <td><button><span class="ui-icon ui-icon-plus"></span>dodaj nowego</button></td>
          </form>
       </tr>
    </table>

@@ -27,6 +27,12 @@
         "matthiasmullie/minify": "1.3.34"
     },
     "scripts": {
+        "compile-css": [
+            "Install\\ComposerHook::compileCss"
+        ],
+        "compile-js": [
+            "Install\\ComposerHook::compileJs"
+        ],
         "post-install-cmd": [
             "Install\\ComposerHook::postUpdate"
         ],

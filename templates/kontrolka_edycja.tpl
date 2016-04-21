@@ -60,10 +60,10 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <tr class="appear">
-                              <td class="appear">#</td>
-                              <td class="appear"><input type="text" class="wide" placeholder="wyróżnik" title="Zdefiniuj możliwe właściwości komponentu. Właściwości są ustawiane przez projektanta w momencie wykorzystania komponentu na formatce. Identyfikator właściwości może zostać użyty w definicji komponentu - w kodzie CSS, HTML oraz JavaScript. Przykładowe identyfikatory: tekst, tytul, kolorTla, rozmiar." name="propId[]" id="propId"></td>
-                              <td class="appear">
+                           <tr>
+                              <td>#</td>
+                              <td><input type="text" class="wide" placeholder="wyróżnik" title="Zdefiniuj możliwe właściwości komponentu. Właściwości są ustawiane przez projektanta w momencie wykorzystania komponentu na formatce. Identyfikator właściwości może zostać użyty w definicji komponentu - w kodzie CSS, HTML oraz JavaScript. Przykładowe identyfikatory: tekst, tytul, kolorTla, rozmiar." name="propId[]" id="propId"></td>
+                              <td>
                                  <select name="propType[]" id="propType">
                                     <option value="t">tekst</option>
                                     <option value="l">liczba</option>
@@ -72,11 +72,11 @@
                                     <option value="e">wyliczeniowy</option>
                                  </select>
                               </td>
-                              <td class="appear">
+                              <td>
                                  <input type="text" class="wide" placeholder="Wartość domyślna"
                                  title="Wartość domyślna bez jednostki miary (bez %, px itp). Dla typu 'kolor' należy podać domyślny kolor w formacie HTML. Dla typu wyliczeniowego należy podać elementy listy oddzielone średnikiem, domyślna będzie pierwsza wartość." name="propDefault[]" id="propDefault">
                                  </td>
-                              <td class="appear">
+                              <td>
                                  <button type="button" onclick="addProp(this)" title="dodaj właściwość" id="addBtn">
                                     <span class="ui-icon ui-icon-plus"></span>
                                  </button>
@@ -181,14 +181,9 @@ function addProp(ob) {
    if (isOk) {
       var newTR = TR.clone();
       newTR.find('input[type=text]').val('');
-      newTR.find('input,select,textarea,button')
-         .focus(function(){ $(this).closest('.row.appear').addClass('appearFocus');})
-         .blur(function(){ $(this).closest('.row.appear').removeClass('appearFocus');})
-      ;
       TR .find('input,select,textarea').attr('readonly',true).removeAttr('placeholder').removeAttr('id').removeAttr('title');
       TR .find('button').removeAttr('id');
-      TR .removeClass('appear')
-         .find('button').attr('title', 'Usuń').attr('onclick','').click(function(){ $(this).closest("tr").remove()})
+      TR .find('button').attr('title', 'Usuń').attr('onclick','').click(function(){ $(this).closest("tr").remove()})
          .find('span.ui-icon-plus').removeClass('ui-icon-plus').addClass('ui-icon-trash')
       ;
       newTR.insertAfter(TR);

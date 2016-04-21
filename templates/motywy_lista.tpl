@@ -11,7 +11,7 @@
       {foreach from=$lista item="item"}
          <form method="post" onSubmit="return confirm('Czy jesteś pewien?');">
          <input type=hidden name="id" value="{$item.id}">
-         <div class="row appear hover">
+         <div class="row hover">
             <div class="col-sm-4" ondblclick="$(this).find('[role=show]').hide();$(this).find('[role=edit]').show();">
                <div role="show" class="inline">
                   {$item.name}
@@ -23,10 +23,10 @@
                   </button>
                </div>
             </div>
-            <div class="appear col-sm-2">
+            <div class="col-sm-2">
                {$item.width} x {$item.height}
             </div>
-            <div class="appear col-sm-6">
+            <div class="col-sm-6">
                {if $rola >= $R_MASTER}
                <button name="act" value="del" type="submit">
                   <span class="ui-icon ui-icon-trash"></span>
@@ -38,18 +38,18 @@
          </form>
       {/foreach}
       {if $rola >= $R_MASTER}
-      <div class="row hover appear">
+      <div class="row hover">
          <form method="post" onSubmit="return $('#name').val().length > 0">
             <input type=hidden name=act value=add>
-            <div class="col-sm-4 appear">
+            <div class="col-sm-4">
                <input type="text" name="name" id="name" size=40>
             </div>
-            <div class="col-sm-2 appear">
+            <div class="col-sm-2">
                <input type="number" min="0" max="1000" name="width" value="800">
                x
                <input type="number" min="0" max="1000" name="height" value="600">
             </div>
-            <div class="col-sm-6 appear">
+            <div class="col-sm-6">
                <button type="submit">
                   <span class="ui-icon ui-icon-plus"></span>
                   dodaj nowy

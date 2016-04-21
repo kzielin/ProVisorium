@@ -30,10 +30,13 @@
 /* układanie formatki */
 img.iconHolder {
     padding: 1px;
-    cursor:pointer; cursor: hand;
+    cursor:pointer;
+    cursor: hand;
     border: 1px solid transparent;
+    &:hover {
+        border: 1px solid gray;
+    }
 }
-img.iconHolder:hover { border: 1px solid gray; }
 
 img.iconHolderSelected {
     background-color: gray;
@@ -45,31 +48,34 @@ div.screenHolder {
     min-height: 400px;
     position: relative;
     overflow: hidden;
+    & > div.elementHolder {
+        border: 1px dashed transparent;
+        position: absolute !important;
+        &:hover{
+            border: 1px dashed #ddd;
+        }
+        &.hot {
+            box-shadow: 0 0 30px red;
+        }
+        &>.elementContent {
+            height: 100%;
+        }
+        &>.pv-movable-handle {
+            display:none;
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border: 1px dashed gray;
+            background-color: white;
+            opacity: 0.5;
+            z-index:999;
+            margin-top: -8px;
+            margin-left: -8px;
+        }
+    }
 }
 
-div.screenHolder > div.elementHolder:hover{
-    border: 1px dashed #ddd;
-}
-div.screenHolder > div.elementHolder {
-    border: 1px dashed transparent;
-    position: absolute !important;
-}
-div.screenHolder > div.elementHolder.hot {
-    box-shadow: 0 0 30px red;
-}
 
-div.screenHolder > div.elementHolder  > .pv-movable-handle {
-    display:none;
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border: 1px dashed gray;
-    background-color: white;
-    opacity: 0.5;
-    z-index:999;
-    margin-top: -8px;
-    margin-left: -8px;
-}
 
 .spinner {
     display: inline-block;
@@ -84,17 +90,18 @@ div.screenHolder > div.elementHolder  > .pv-movable-handle {
 
 .has-spinner.active {
     cursor:progress;
+    .spinner {
+        opacity: 1;
+        width: auto; /* This doesn't work, just fix for unkown width elements */
+    }
 }
 
-.has-spinner.active .spinner {
-    opacity: 1;
-    width: auto; /* This doesn't work, just fix for unkown width elements */
-}
 
 .glyphicon-spin {
     -webkit-animation: spin 1000ms infinite linear;
     animation: spin 1000ms infinite linear;
 }
+
 @keyframes spin {
     0% {
         -webkit-transform: rotate(0deg);
@@ -106,7 +113,13 @@ div.screenHolder > div.elementHolder  > .pv-movable-handle {
     }
 }
 
-tr.border { border: 1px solid gray; }
-tr.border > td { padding: 3px; }
-tr.border > td:first-child {  border-right: 1px solid lightgray; }
-tr.border > td > input, tr.border > td > select { width: 100%; }
+tr.border {
+    border: 1px solid gray;
+    & > td {
+        padding: 3px;
+        &:first-child {
+            border-right: 1px solid lightgray;
+        }
+        & > input, & > select { width: 100%; }
+    }
+}

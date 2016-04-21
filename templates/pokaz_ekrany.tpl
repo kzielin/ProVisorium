@@ -13,7 +13,7 @@
       {foreach from=$listaEkranow item="item"}
       <form method="post" id="f{$item.id}" onSubmit="return confirm('Czy jesteś pewien?');">
       <input type="hidden" name="screenId" value="{$item.id}">
-      <tr class="appear hover">
+      <tr class="hover">
          <td style="width:20px;">
             {if $item.isMain}
                <span class="ui-icon ui-icon-bullet" style="margin-left:1px;" title="To jest ekran startowy"></span>
@@ -33,7 +33,7 @@
                </button>
             </div>
          </td>
-         <td class="appear">
+         <td>
             <a href="/pokaz/ekran/{$item.id}"><button type="button">
                   <span class="ui-icon ui-icon-pencil"></span>
                   edytuj
@@ -46,12 +46,12 @@
       </tr>
       </form>
       {/foreach}
-      <tr class="hover appear">
+      <tr class="hover">
          <form method=post onSubmit="return $('#screenName').val().length > 0"> 
          <input type=hidden name=act value=add>
          <td style="width:20px;">&nbsp;</td>
-         <td class="appear"><input type=text name=screenName id=screenName size=40></td>
-         <td class="appear"><button><span class="ui-icon ui-icon-plus"></span>dodaj nowy</button></td>
+         <td><input type=text name=screenName id=screenName size=40></td>
+         <td><button><span class="ui-icon ui-icon-plus"></span>dodaj nowy</button></td>
          </form>
       </tr>
    </table>

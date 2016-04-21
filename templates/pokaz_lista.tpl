@@ -11,7 +11,7 @@
       {foreach from=$listaPokazow item="pokaz"}
          <form method="post" onSubmit="return confirm('Czy jesteś pewien?');">
          <input type=hidden name=showId value="{$pokaz.id}">
-         <div class="row appear hover">
+         <div class="row hover">
             <div class="col-sm-4" ondblclick="$(this).find('[role=show]').hide();$(this).find('[role=edit]').show();">
                <div role="show" class="inline">
                   {$pokaz.name}
@@ -26,7 +26,7 @@
             <div class="col-sm-2">
                {$themes[$pokaz.theme].name}
             </div>
-            <div class="appear col-sm-6">
+            <div class="col-sm-6">
                <a href="/pokaz/uruchom/{$pokaz.id}"><button type="button">
                   <span class="ui-icon ui-icon-play"></span>
                   uruchom
@@ -46,10 +46,10 @@
          </form>
       {/foreach}
       {if $rola >= $R_MASTER}
-      <div class="row hover appear">
+      <div class="row hover">
          <form method=post onSubmit="return $('#showName').val().length > 0"> 
             <input type=hidden name=act value=add>
-            <div class="col-sm-4 appear">
+            <div class="col-sm-4">
                <input type=text name=showName id=showName size=40>
             </div>
             <div class="col-sm-2">
@@ -59,7 +59,7 @@
                   {/foreach}
                </select>
             </div>
-            <div class="col-sm-6 appear">
+            <div class="col-sm-6">
                <button type="submit">
                   <span class="ui-icon ui-icon-plus"></span>
                   dodaj nowy

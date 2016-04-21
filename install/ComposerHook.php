@@ -44,6 +44,23 @@ class ComposerHook
         $hook->minifyJS();
         $hook->warmUpTemplates();
     }
+    /**
+     * @param Event $event
+     */
+    public static function compileCss(Event $event)
+    {
+        $hook = new static(getcwd(), $event);
+        $hook->compileLess();
+        $hook->minifyCSS();
+    }
+    /**
+     * @param Event $event
+     */
+    public static function compileJs(Event $event)
+    {
+        $hook = new static(getcwd(), $event);
+        $hook->minifyJS();
+    }
     protected function compileLess()
     {
 

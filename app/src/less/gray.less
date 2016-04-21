@@ -80,12 +80,30 @@ button.wcisniety {
 input, select, textarea { border: 1px solid gray; }
 input[type=file] { border: none; color: white; }
 input.bad { background-color: #fee; }
-a,a:visited { color: #111; text-decoration: none; }
-a:hover { color: #000; text-decoration: none;}
+a {
+   &,&:visited {
+      color: #111;
+      text-decoration: none;
+   }
+   &:hover {
+      color: #000;
+      text-decoration: none;
+   }
+}
 
-.leftMenu  { width: 250px; position: fixed; }
-.leftMenu ul { padding: 10px 10px 10px 20px; background-color: #eee; margin: 0 0 10px 0; }
-.leftMenu ul  li { list-style: none; margin: 5px 0; }
+.leftMenu  {
+   width: 250px;
+   position: fixed;
+   ul {
+      padding: 10px 10px 10px 20px;
+      background-color: #eee;
+      margin: 0 0 10px 0;
+      li {
+         list-style: none;
+         margin: 5px 0;
+      }
+   }
+}
 
 .message { width: 100%; text-align: center; position: absolute; top: 0; left: 0; right: 0;}
 .message  div { margin: 0 auto; background-color: #efe; padding: 5px 15px; display: inline; font-weight: bold;}
@@ -107,8 +125,6 @@ span.icon-active:hover{ border: 1px solid black; }
 
 /* tabele */
 .hover:hover { background-color: #ddd; }
-.appear .appear { opacity: 1; }
-.appear:hover .appear, .appearFocus .appear { opacity: 1 !important; }
 
 table.lista td, table.lista th {
    padding: 0 15px;

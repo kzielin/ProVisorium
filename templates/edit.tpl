@@ -7,7 +7,7 @@
       {foreach from=$pliki item="plik" name="ekrany"}
       <form method=post onSubmit="return confirm('Czy jesteś pewien?');">
       <input type=hidden name=screenId value="{$plik.id}">
-      <tr class="hover appear">
+      <tr class="hover">
          <td>{if $defaultScreen == $plik.id}*{/if}</td>
          <td ondblclick="$(this).children('[role=show]').hide();$(this).children('[role=edit]').show();">
             <div role="show" class="inline">
@@ -20,7 +20,7 @@
                </button>
             </div>
          </td>
-         <td class="appear">
+         <td>
             <button name=act value=edit>
                <span class="ui-icon ui-icon-pencil"></span>
                edytuj
@@ -48,10 +48,10 @@
       </form>
       {/foreach}
       <form method=post>
-      <tr class="hover appear">
+      <tr class="hover">
          <td></td>
-         <td class="appear"><input type=text name=fileName size=40></td>
-         <td class="appear">
+         <td><input type=text name=fileName size=40></td>
+         <td>
             <button name="act" value="add">
                <span class="ui-icon ui-icon-plus"></span>dodaj nowy
             </button>

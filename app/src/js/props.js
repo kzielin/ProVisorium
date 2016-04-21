@@ -6,9 +6,10 @@ function screenHolderClick(e, ob) {
     if ($('.iconHolderSelected:first').length) {
         if (isNaN(window.nrE)) window.nrE = 0;
         window.nrE = window.nrE + 1;
+        var nrE = window.nrE;
         var compo = $('.iconHolderSelected:first').removeClass('iconHolderSelected');
-        var newOb = $('<div class="hot"><span class="pv-movable-handle ui-icon ui-icon-arrow-4"></span>'
-            + window.atob(compo.data('html')) + '</div>');
+        var newOb = $('<div><span class="pv-movable-handle ui-icon ui-icon-arrow-4"></span>' +
+            '<div class="elementContent">' + atob(compo.data('html')) + '</div></div>');
         $(ob).append(newOb);
         $('.elementHolder').removeClass('hot');
         newOb
@@ -17,11 +18,11 @@ function screenHolderClick(e, ob) {
                 left: Math.floor(x / gridRaster) * gridRaster,
                 top: Math.floor(y / gridRaster) * gridRaster
             })
-            .attr('id', 'el' + window.nrE)
-            .attr('data-nr', window.nrE)
+            .attr('id', 'el' + nrE)
+            .attr('data-nr', nrE)
             .attr('data-type', compo.data('id'))
             .resizable({
-                grid: gridRaster,
+                grid: [gridRaster, gridRaster],
                 stop: function(){ $(this).addClass('hot'); updateDimensionProps(this); },
                 resize: function(){ $(this).addClass('hot'); updateDimensionProps(this); }
             })
@@ -40,18 +41,17 @@ function screenHolderClick(e, ob) {
                 }
             )
             .click(
-                function () {
+                function (e) {
                     hideProps();
                     $(this).addClass('hot');
                     componentClick();
-                    event.stopPropagation();
+                    e.stopPropagation();
                 }
             );
         updateDimensionProps(newOb);
         updatePositionProps(newOb);
         newOb.click();
-
-        ;
+        window.setTimeout(function(){ $('#el' + nrE).addClass('hot'); componentClick(); }, 100);
     } else {
         hideProps();
     }
@@ -77,7 +77,7 @@ function mkPropRow(label, field) {
 
 function mkProp(type, name, label, val, def){
     label = label || name;
-    val = val || '';
+    val = val || def;
     switch (type) {
         case 't':
             return mkPropRow(label, '<input type="text" name="'+ name +'" value="'+val+'" onKeyUp="updatePropField(this)">');
@@ -117,6 +117,11 @@ function getHot() {
     return $('.elementHolder.hot:first');
 }
 
+function removeHot() {
+    var $ob = getHot();
+    $ob.remove();
+    hideProps();
+}
 function renderProps(data){
     var $ob = getHot();
     if ($ob.length && $ob.data('type') == data.komponent.id) {
@@ -125,7 +130,8 @@ function renderProps(data){
         showProps();
         $('.props-wrapper .props-title.active').removeClass('active');
 
-        var $tab = $('.props-wrapper .props-area')
+        var $area = $('.props-wrapper .props-area');
+        var $tab = $area
             .append("<table></table>")
             .find('table');
 
@@ -139,9 +145,9 @@ function renderProps(data){
             .append(mkProp('l','h','Wysokość',props.h))
             .append(mkProp('l','x','Pozycja X',props.x))
             .append(mkProp('l','y','Pozycja Y',props.y))
-            .append(mkProp('l','z','Kolejność',props.z))
+            //.append(mkProp('l','z','Kolejność',props.z))
         ;
-
+        $area.append('<button><span class="ui-icon ui-icon-trash" onclick="if (confirm(\'Czy chcesz usunąć element?\')) removeHot()"></span></button>')
     }
 }
 
@@ -153,6 +159,7 @@ function componentClick() {
         var componentTypeId = $ob.data('type');
         if (props[componentTypeId] != undefined) {
             renderProps(props[componentTypeId]);
+            rerenderHotComponent();
         } else {
             showProps();
             $.ajax({
@@ -207,4 +214,18 @@ function setProp(name,value) {
 
 function updatePropField(field) {
     setProp($(field).attr('name'), $(field).val());
+    var newHTML = rerenderHotComponent();
+}
+
+function rerenderHotComponent() {
+    var $ob = getHot();
+    var obId = $ob.data('type');
+    var compo = $('.iconHolder[data-id='+ obId +']:first');
+    var newHTML = atob(compo.data('html'));
+    $('.props-area:visible').find('input,select').each(function() {
+        var key = $(this).attr('name');
+        var val = $(this).val();
+        newHTML = newHTML.replace(new RegExp('#' + key , "g"), val);
+    });
+    $ob.find('.elementContent').html(newHTML);
 }
