@@ -1,0 +1,112 @@
+/* techniczne */
+.ui-widget { font-size: 0.9em !important; }
+
+.d0 { background-color: #eee; }
+.d1 { background-color: #eee; }
+.d2 { background-color: #eee; }
+
+.space { padding: 10px; }
+.mspace { margin: 20px; }
+.right { text-align: right; }
+.left { text-align: left; }
+.fr { float: right; }
+.fl { float: left; }
+.clr { clear: both; }
+.hide { display: none; }
+.center { text-align: center; }
+.dtxt { color: gray; }
+.stxt { font-size: 0.8em; }
+.btxt { font-weight: bold;}
+.mono { font-family: monospace }
+.top { vertical-align: top; }
+.wide { width: 100%; }
+.ohix { overflow-x: hidden; }
+.air { opacity: 0; filter:alpha(opacity=0); }
+.fly { position: absolute; }
+.href { cursor: pointer; cursor: hand; }
+.ui-icon-inline { display: inline-block !important; vertical-align: bottom; }
+
+
+/* układanie formatki */
+img.iconHolder {
+    padding: 1px;
+    cursor:pointer; cursor: hand;
+    border: 1px solid transparent;
+}
+img.iconHolder:hover { border: 1px solid gray; }
+
+img.iconHolderSelected {
+    background-color: gray;
+}
+
+div.screenHolder {
+    border: 1px dashed gray;
+    background-color: white;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+div.screenHolder > div.elementHolder:hover{
+    border: 1px dashed #ddd;
+}
+div.screenHolder > div.elementHolder {
+    border: 1px dashed transparent;
+    position: absolute !important;
+}
+div.screenHolder > div.elementHolder.hot {
+    box-shadow: 0 0 30px red;
+}
+
+div.screenHolder > div.elementHolder  > .pv-movable-handle {
+    display:none;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 1px dashed gray;
+    background-color: white;
+    opacity: 0.5;
+    z-index:999;
+    margin-top: -8px;
+    margin-left: -8px;
+}
+
+.spinner {
+    display: inline-block;
+    opacity: 0;
+    width: 0;
+
+    -webkit-transition: opacity 0.25s, width 0.25s;
+    -moz-transition: opacity 0.25s, width 0.25s;
+    -o-transition: opacity 0.25s, width 0.25s;
+    transition: opacity 0.25s, width 0.25s;
+}
+
+.has-spinner.active {
+    cursor:progress;
+}
+
+.has-spinner.active .spinner {
+    opacity: 1;
+    width: auto; /* This doesn't work, just fix for unkown width elements */
+}
+
+.glyphicon-spin {
+    -webkit-animation: spin 1000ms infinite linear;
+    animation: spin 1000ms infinite linear;
+}
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+tr.border { border: 1px solid gray; }
+tr.border > td { padding: 3px; }
+tr.border > td:first-child {  border-right: 1px solid lightgray; }
+tr.border > td > input, tr.border > td > select { width: 100%; }
