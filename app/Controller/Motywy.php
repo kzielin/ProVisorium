@@ -7,6 +7,7 @@ use Service\Themes;
 
 class Motywy extends RouterAbstract
 {
+   protected $requireLogin = true;
    function __construct($controller) { return parent::__construct($controller); }
    function index() {
       $this->controller->redirect('motywy/lista');

@@ -28,7 +28,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "Install\\ComposerHook::postInstall"
+            "Install\\ComposerHook::postUpdate"
         ],
         "post-update-cmd": [
             "Install\\ComposerHook::postUpdate"

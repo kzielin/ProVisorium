@@ -55,13 +55,22 @@ class ComposerHook
         $parser = new Less_Parser();
         $fileList = glob($srcDir . '*.less');
         foreach ($fileList as $fileName) {
-            $destPath = $destDir.basename($fileName, '.less').'.css';
-            $parser->parseFile($srcDir, '/assets/img/');
+
+            $destPath = $destDir.basename($fileName, '.less').'.full.css';
+            $parser->parseFile($fileName);
             file_put_contents($destPath, $parser->getCss());
         }
         
     }
 
+    protected function checkedMinify(Minify\Minify $minifier, $src, $dst)
+    {
+        $minifier = clone $minifier;
+        if (!file_exists($dst) || filemtime($src) > filemtime($dst)) {
+            $minifier->add($src, $src);
+            $minifier->minify($dst);
+        }
+    }
     private function minifyCSS()
     {
         $this->io->write('Minifying CSS files...');
@@ -69,6 +78,13 @@ class ComposerHook
         $minifier = new CSS;
         $srcDir = $this->rootDirectory.'/assets/css/';
         $destDir = $this->rootDirectory.'/assets/css/';
+
+        $fileList = glob($srcDir . '*.full.css');
+        foreach ($fileList as $fileName) {
+            $destPath = $destDir.basename($fileName, '.full.css').'.min.css';
+            $this->checkedMinify($minifier, $fileName, $destPath);
+            @unlink($fileName);
+        }
     }
 
     private function minifyJS()
@@ -78,6 +94,11 @@ class ComposerHook
         $minifier = new Minify\JS();
         $srcDir = $this->rootDirectory.'/app/src/js/';
         $destDir = $this->rootDirectory.'/assets/js/';
+        $fileList = glob($srcDir . '*.js');
+        foreach ($fileList as $fileName) {
+            $destPath = $destDir.basename($fileName, '.js').'.min.js';
+            $this->checkedMinify($minifier, $fileName, $destPath);
+        }
     }
 
     private function warmUpTemplates()
