@@ -10,6 +10,7 @@ define('R_ADMIN', 3);
 $uprawnienia = [
     'start' => R_USER,
     'logowanie' => R_ALL,
+    'ajax' => R_ALL,
     'uzytkownicy' => R_ADMIN,
     'komponenty' => R_USER,
     'motywy' => R_USER,

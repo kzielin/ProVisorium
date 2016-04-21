@@ -1,6 +1,20 @@
 {
+    "name": "kzielin/provisorium",
+    "description": "System ProVisorium do prototypowania formatek",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Krzysztof Zieliński",
+            "email": "krzychu.zet@gmail.com"
+        }
+    ],
     "autoload": {
-        "psr-0": { "": "app/" }
+        "psr-0": {
+            "": "app/"
+        },
+        "psr-4": {
+            "Install\\": "install"
+        }
     },
     "require": {
         "smarty/smarty": "^3.1",
@@ -8,6 +22,16 @@
         "components/jqueryui": "^1.11",
         "twitter/bootstrap": "^3.3",
         "symfony/yaml": "^3.0",
-        "filp/whoops": "^2.1"
+        "filp/whoops": "^2.1",
+        "oyejorge/less.php": "v1.7.0.10",
+        "matthiasmullie/minify": "1.3.34"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Install\\ComposerHook::postInstall"
+        ],
+        "post-update-cmd": [
+            "Install\\ComposerHook::postUpdate"
+        ]
     }
 }

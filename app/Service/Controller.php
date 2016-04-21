@@ -27,9 +27,17 @@ class Controller
 	{
        $this->args = new Args();
        $this->login = Login::getInstance();
-       $this->view = $renderer;
+       $this->setRenderer($renderer);
        $this->config = $config;
     }
+
+   /**
+    * @param Renderer $renderer
+    */
+   public function setRenderer(Renderer $renderer)
+   {
+      $this->view = $renderer;
+   }
 
    function redirect($where = '') {
       header('Location: '.$this->config['base_href'].$where);
@@ -98,4 +106,5 @@ class Controller
          $this->view->display('_footer.tpl');      
       }
    }
+
 }

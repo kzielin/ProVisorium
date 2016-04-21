@@ -18,7 +18,7 @@
    {foreach from=$kontrolki item="kontrolka"}
    $(".component_{$kontrolka.name|urlencode}").each(function() {ldelim}
    {$kontrolka.js}
-   {rdelim}
+   {rdelim});
    {/foreach}
 </script>
 <div class="ui-corner-all content" style="height:100%;">
@@ -26,6 +26,10 @@
    <div class="screenHolder" onClick="screenHolderClick(arguments[0], this);" style="width:{$theme.width}px; height:{$theme.height}px">
       
    </div>
+   <button type="button" disabled>
+      <span class="ui-icon ui-icon-check"></span>
+      Zapisz
+   </button>
 </div>
 
 <div style="clear:both"></div>

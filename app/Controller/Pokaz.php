@@ -89,5 +89,6 @@ class Pokaz extends RouterAbstract
       $v->assign('kontrolki', Kontrolki::lista($pokaz['theme']));
       $v->assign('idEkranu', $this->args->get(2));
       $v->assign('nazwaEkranu', Ekran::getName($this->args->get(2)));
+      $v->assign('listaEkranow', Projekt::getEkrany($projectId));
    }
 }

@@ -22,6 +22,7 @@
         <link rel="stylesheet" type="text/css" href="/{$config.assets_dir}/css/gray.css" />
         <link rel="stylesheet" type="text/css" href="/{$config.assets_dir}/css/style.css" />
         <script type="text/javascript" src="/{$config.assets_dir}/js/tools.js"></script>
+        <script type="text/javascript" src="/{$config.assets_dir}/js/props.js"></script>
 
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:400,700,900,300|Open+Sans:400,300,600,800&subset=latin,latin-ext">
     </head>
