@@ -4,9 +4,9 @@
     
    <div class="dtxt left" style="width: 300px; margin: 10px auto;" >
       Wersja testowa. Dostęp dla poszczególnych ról:
-      <li>Administrator - login:root hasło:root</li>
-      <li>Projektant - login:projektant hasło:projektant</li>
-      <li>Użytkownik - login:test hasło:test</li>
+      <li>Administrator - login: root hasło: root</li>
+      <li>Projektant - login: projektant hasło: projektant</li>
+      <li>Użytkownik - login: test hasło: test</li>
    </div>
 </div>
 <div style="width: 250px; margin: 100px auto;" class="center d2 space ui-corner-all">

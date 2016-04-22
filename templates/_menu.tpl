@@ -1,11 +1,11 @@
 <div class="leftMenu">
 
+   {if $rola >= $R_MASTER}
    <ul class="ui-corner-all">
-      {if $rola >= $R_MASTER}
          <li><a class="block" href="/motywy">motywy</a></li>
          <li><a class="block" href="/komponenty">komponenty</a></li>
-      {/if}
    </ul>
+   {/if}
    <ul class="ui-corner-all">
       <li><a class="block" href="/pokaz/lista">pokazy</a></li>
    </ul>

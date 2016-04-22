@@ -1,8 +1,9 @@
 function pasteComponent(ob,x,y,nrE,type,props,w,h) {
 
     var compo = $('.iconHolder[data-id='+ type +']');
+    var html = atob(compo.data('html'));
     var newOb = $('<div><span class="pv-movable-handle ui-icon ui-icon-arrow-4"></span>' +
-        '<div class="elementContent">' + atob(compo.data('html')) + '</div></div>');
+        '<div class="elementContent">' + html + '</div></div>');
     $(ob).append(newOb);
     $('.elementHolder').removeClass('hot');
     newOb
@@ -46,7 +47,9 @@ function pasteComponent(ob,x,y,nrE,type,props,w,h) {
     if (undefined != h) { newOb.height(h);  }
     updateDimensionProps(newOb);
     updatePositionProps(newOb);
+    rerenderComponent(newOb);
 
+    hideProps();
 }
 function screenHolderClick(e, ob) {
     var of = $(ob).offset();
@@ -54,12 +57,18 @@ function screenHolderClick(e, ob) {
     var y = mouseY(e) - of.top;
 
     if ($('.iconHolderSelected:first').length) {
-        if (isNaN(window.nrE)) window.nrE = 0;
+        if (isNaN(window.nrE)) {
+            window.nrE = 0;
+            $('[data-nr]').each(function(){
+                if (window.nrE <= $(this).data('nr')) {
+                    window.nrE = $(this).data('nr') + 1;
+                }
+            });
+        }
         window.nrE = window.nrE + 1;
-        var nrE = window.nrE;
         var compo = $('.iconHolderSelected:first').removeClass('iconHolderSelected');
-        pasteComponent(ob, x, y, nrE, compo.data('id'));
-        window.setTimeout(function(){ $('#el' + nrE).addClass('hot'); componentClick(); }, 100);
+        pasteComponent(ob, x, y, window.nrE, compo.data('id'));
+        window.setTimeout(function(){ $('#el' + window.nrE).addClass('hot'); componentClick(); }, 100);
     } else {
         hideProps();
     }
@@ -155,7 +164,11 @@ function renderProps(data){
             .append(mkProp('l','y','Pozycja Y',props.y))
             //.append(mkProp('l','z','Kolejność',props.z))
         ;
-        $area.append('<button><span class="ui-icon ui-icon-trash" onclick="if (confirm(\'Czy chcesz usunąć element?\')) removeHot()"></span></button>')
+        $area.append('<button onclick="if (confirm(\'Czy chcesz usunąć element?\')) removeHot()"><span class="ui-icon ui-icon-trash"></span></button>')
+        $('.props-area:visible').find('input,select').each(function() {
+            setProp($(this).attr('name'), $(this).val());
+        });
+        rerenderComponent($ob);
     }
 }
 
@@ -167,7 +180,7 @@ function componentClick() {
         var componentTypeId = $ob.data('type');
         if (props[componentTypeId] != undefined) {
             renderProps(props[componentTypeId]);
-            rerenderHotComponent();
+            rerenderComponent($ob);
         } else {
             showProps();
             $.ajax({
@@ -175,7 +188,7 @@ function componentClick() {
                 success: function (data) {
                     props[componentTypeId] = data;
                     renderProps(data);
-                    rerenderHotComponent();
+                    rerenderComponent(getHot());
                 }
             });
         }
@@ -223,21 +236,23 @@ function setProp(name,value) {
 
 function updatePropField(field) {
     setProp($(field).attr('name'), $(field).val());
-    rerenderHotComponent();
+    rerenderComponent(getHot());
 }
 
-function rerenderHotComponent() {
-    var $ob = getHot();
+function rerenderComponent($ob) {
     var obId = $ob.data('type');
-    var compo = $('.iconHolder[data-id='+ obId +']:first');
-    var newHTML = atob(compo.data('html'));
-    $('.props-area:visible').find('input,select').each(function() {
-        var key = $(this).attr('name');
-        var val = $(this).val();
-        setProp(key, val);
-        newHTML = newHTML.replace(new RegExp('#' + key , "g"), val);
-    });
-    $ob.find('.elementContent').html(newHTML);
+    if (obId > 0) {
+        var compo = $('.iconHolder[data-id=' + obId + ']:first');
+        var newHTML = atob(compo.data('html'));
+        var props = JSON.parse(atob($ob.data('props')));
+        if (props) {
+            $.each(props, function (key, val) {
+                setProp(key, val);
+                newHTML = newHTML.replace(new RegExp('#' + key, "g"), val);
+            });
+            $ob.find('.elementContent').html(newHTML);
+        }
+    }
 }
 
 function prepareSaveScreen() {
