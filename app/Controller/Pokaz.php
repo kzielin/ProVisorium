@@ -99,18 +99,76 @@ class Pokaz extends RouterAbstract
 
     function ekran()
     {
-        $this->controller->setTemplate('pokaz_ekran');
-        $v = $this->view;
-        $ekranId = $this->args->get(2);
-        $projectId = Ekran::getProjectId($ekranId);
-        $pokaz = Projekt::get($projectId);
+        if ($this->login->getRole() >= R_MASTER) {
+            $this->controller->setTemplate('pokaz_ekran');
+            $v = $this->view;
+            $ekranId = $this->args->get(2);
+            $projectId = Ekran::getProjectId($ekranId);
+            $pokaz = Projekt::get($projectId);
 
-        $v->assign('idEkranu', $ekranId);
-        $v->assign('ekran', Ekran::getContent($ekranId));
-        $v->assign('pokaz', $pokaz);
-        $v->assign('theme', Themes::get($pokaz['theme']));
-        $v->assign('kontrolki', Kontrolki::lista($pokaz['theme']));
-        $v->assign('nazwaEkranu', Ekran::getName($ekranId));
-        $v->assign('listaEkranow', Projekt::getEkrany($projectId));
+            $v->assign('idEkranu', $ekranId);
+            $v->assign('ekran', Ekran::getContent($ekranId));
+            $v->assign('pokaz', $pokaz);
+            $v->assign('theme', Themes::get($pokaz['theme']));
+            $v->assign('kontrolki', Kontrolki::lista($pokaz['theme']));
+            $v->assign('nazwaEkranu', Ekran::getName($ekranId));
+            $v->assign('listaEkranow', Projekt::getEkrany($projectId));
+        } else $this->controller->redirect();
     }
+
+    function uruchom()
+    {
+        $this->controller->setTemplate('show');
+
+
+        $projectId = $this->args->getInt(2);
+        $project = Projekt::get($projectId);
+
+
+        $ekranId = $this->args->getInt(3);
+        if (empty($ekranId)) $ekranId = Projekt::getDefaultScreenId($projectId);
+        $ekran = Ekran::getContent($ekranId);
+
+        $nazwaEkranu = Ekran::getName($ekranId);
+
+        $theme = Themes::get($project['theme']);
+        $kontrolkiLista = Kontrolki::lista($project['theme']);
+        $kontrolki = array();
+        foreach ($kontrolkiLista as $item) {
+            $kontrolki[$item['id']] = $item;
+        }
+
+        $html = '';
+        foreach ($ekran as $item) {
+            $kontrolka = $kontrolki[$item['component_id']];
+            if ($kontrolka) {
+                $elem = $kontrolka['html'];
+                $props = json_decode(base64_decode($item['props']), true);
+                if (is_array($props)) {
+                    foreach ($props as $key => $val) {
+                        $elem = preg_replace("/(#$key)([^a-zA-Z0-9_])/", "$val\\2", $elem);
+                    }
+                    $html .= "<a style=\"position: absolute; " .
+                        "top:{$props[y]}px;left:{$props[x]}px;width:{$props[w]}px;height:{$props[h]}px\"" .
+                        ($props['link'] > 0 ? " onclick='backdropLoader()' href='/pokaz/uruchom/{$projectId}/{$props[link]}' " : '') .
+                        ">$elem</a>";
+                }
+            }
+        }
+
+        $v = $this->view;
+        $data = array(
+            'pokazId' => $projectId,
+            'pokaz' => $project,
+            'ekranId' => $ekranId,
+            'ekran' => $ekran,
+            'nazwaEkranu' => $nazwaEkranu,
+            'theme' => $theme,
+            'kontrolki' => $kontrolki,
+            'html' => $html,
+        );
+
+        $v->assign($data);
+    }
+
 }

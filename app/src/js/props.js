@@ -248,7 +248,7 @@ function rerenderComponent($ob) {
         if (props) {
             $.each(props, function (key, val) {
                 setProp(key, val);
-                newHTML = newHTML.replace(new RegExp('#' + key, "g"), val);
+                newHTML = newHTML.replace(new RegExp('(#' + key + ')([^a-zA-Z0-9_])', "g"), val + "$2");
             });
             $ob.find('.elementContent').html(newHTML);
         }

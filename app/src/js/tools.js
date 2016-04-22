@@ -71,3 +71,7 @@ function mouseY(e) {
         return e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
     return 0;
 }
+
+function backdropLoader() {
+    $('#globalLoader').removeClass('hidden').addClass('in');
+}
