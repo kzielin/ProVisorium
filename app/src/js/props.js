@@ -1,3 +1,53 @@
+function pasteComponent(ob,x,y,nrE,type,props,w,h) {
+
+    var compo = $('.iconHolder[data-id='+ type +']');
+    var newOb = $('<div><span class="pv-movable-handle ui-icon ui-icon-arrow-4"></span>' +
+        '<div class="elementContent">' + atob(compo.data('html')) + '</div></div>');
+    $(ob).append(newOb);
+    $('.elementHolder').removeClass('hot');
+    newOb
+        .addClass('elementHolder hot component_' + compo.attr('title'))
+        .css({
+            left: Math.floor(x / gridRaster) * gridRaster,
+            top: Math.floor(y / gridRaster) * gridRaster
+        })
+        .attr('id', 'el' + nrE)
+        .attr('data-nr', nrE)
+        .attr('data-type', compo.data('id'))
+        .resizable({
+            grid: [gridRaster, gridRaster],
+            stop: function(){ $(this).addClass('hot'); updateDimensionProps(this); },
+            resize: function(){ $(this).addClass('hot'); updateDimensionProps(this); }
+        })
+        .draggable({
+            handle: '.pv-movable-handle',
+            grid: [gridRaster, gridRaster],
+            stop: function(){ $(this).addClass('hot'); updatePositionProps(this); },
+            drag: function(){ $(this).addClass('hot'); updatePositionProps(this); }
+        })
+        .hover(
+            function () {
+                $(this).find('.pv-movable-handle').show()
+            },
+            function () {
+                $(this).find('.pv-movable-handle').hide()
+            }
+        )
+        .click(
+            function (e) {
+                hideProps();
+                $(this).addClass('hot');
+                componentClick();
+                e.stopPropagation();
+            }
+        );
+    if (undefined != props) { newOb.attr('data-props', props);  }
+    if (undefined != w) { newOb.width(w);  }
+    if (undefined != h) { newOb.height(h);  }
+    updateDimensionProps(newOb);
+    updatePositionProps(newOb);
+
+}
 function screenHolderClick(e, ob) {
     var of = $(ob).offset();
     var x = mouseX(e) - of.left;
@@ -8,48 +58,7 @@ function screenHolderClick(e, ob) {
         window.nrE = window.nrE + 1;
         var nrE = window.nrE;
         var compo = $('.iconHolderSelected:first').removeClass('iconHolderSelected');
-        var newOb = $('<div><span class="pv-movable-handle ui-icon ui-icon-arrow-4"></span>' +
-            '<div class="elementContent">' + atob(compo.data('html')) + '</div></div>');
-        $(ob).append(newOb);
-        $('.elementHolder').removeClass('hot');
-        newOb
-            .addClass('elementHolder hot component_' + compo.attr('title'))
-            .css({
-                left: Math.floor(x / gridRaster) * gridRaster,
-                top: Math.floor(y / gridRaster) * gridRaster
-            })
-            .attr('id', 'el' + nrE)
-            .attr('data-nr', nrE)
-            .attr('data-type', compo.data('id'))
-            .resizable({
-                grid: [gridRaster, gridRaster],
-                stop: function(){ $(this).addClass('hot'); updateDimensionProps(this); },
-                resize: function(){ $(this).addClass('hot'); updateDimensionProps(this); }
-            })
-            .draggable({
-                handle: '.pv-movable-handle',
-                grid: [gridRaster, gridRaster],
-                stop: function(){ $(this).addClass('hot'); updatePositionProps(this); },
-                drag: function(){ $(this).addClass('hot'); updatePositionProps(this); }
-            })
-            .hover(
-                function () {
-                    $(this).find('.pv-movable-handle').show()
-                },
-                function () {
-                    $(this).find('.pv-movable-handle').hide()
-                }
-            )
-            .click(
-                function (e) {
-                    hideProps();
-                    $(this).addClass('hot');
-                    componentClick();
-                    e.stopPropagation();
-                }
-            );
-        updateDimensionProps(newOb);
-        updatePositionProps(newOb);
+        pasteComponent(ob, x, y, nrE, compo.data('id'));
         window.setTimeout(function(){ $('#el' + nrE).addClass('hot'); componentClick(); }, 100);
     } else {
         hideProps();

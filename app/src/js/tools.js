@@ -1,10 +1,6 @@
 var gridRaster = 10;
 $(document).ready(function () {
-    $("div.tabs").tabs({
-        load: function (event, ui) {
-            console.log('load');
-        }
-    });
+    $("div.tabs").tabs();
     $(".appear input,.appear select,.appear textarea,.appear button")
         .focus(function () {
             $(this).closest('.row.appear').addClass('appearFocus');
