@@ -56,7 +56,7 @@
                     if (e.which == 13) {
                         var comment = $(this).val().trim();
                         var id = $(this).closest('.component').data('id');
-                        $(this).html('');
+                        $(this).html('').val('');
                         $.ajax({
                             method: 'POST',
                             url: '/ajax/saveComment/' + id,
@@ -75,6 +75,7 @@
                                 ;
                             }
                         });
+                        return false;
                     }
                 });
 
