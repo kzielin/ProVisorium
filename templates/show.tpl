@@ -1,29 +1,93 @@
+<style type="text/css">
+    {foreach $kontrolki as $kontrolka}
+    .component_{$kontrolka.name|urlencode} {
+    {$kontrolka.css}
+    }
+
+    {/foreach}
+</style>
+<script type="text/javascript">
+    {foreach $kontrolki as $kontrolka}
+    $(".component_{$kontrolka.name|urlencode}").each(function () {
+        {$kontrolka.js}
+    });
+    {/foreach}
+</script>
+
 <div class="ui-corner-all show center">
-   <span class="fr icon-active ui-corner-all ui-icon ui-icon-arrowreturnthick-1-w"
+   <span class="pull-right glyphicon glyphicon-home href space"
          onClick="window.location='/'"
          title="Powrót do listy pokazów"
-   ></span>
-   <span class="fr icon-active ui-corner-all ui-icon ui-icon-help"
-         onMouseOver="$('#helpArea').fadeIn()"
-         onMouseOut="$('#helpArea').fadeOut()"
+   >
+   </span>
+   <span class="pull-right glyphicon glyphicon-comment href space comments-button"
+         title="Pokaż komentarze"
+         onclick="$(this).closest('.show').toggleClass('comments')"
    ></span>
     <div class="showTitle">{$pokaz.name} - {$nazwaEkranu}</div>
 
     <div style="position: relative; display: inline-block;">
-        <div id="helpArea" class="hide">
-            {foreach from=$areas item="link"}
-                <div class="helpRegion"
-                     style="left:{$link.x1}px; top:{$link.y1}px; width:{$link.x2-$link.x1}px; height:{$link.y2-$link.y1}px; "
-                ></div>
-            {/foreach}
-        </div>
-
         <div class="screenHolder" style="width:{$theme.width}px; height:{$theme.height}px">
             {$html}
         </div>
-
-
     </div>
     <div class="clr"></div>
 </div>
 
+<script>
+
+    $(window).ready(function () {
+        $('.screenHolder > .component')
+                .mouseover(function () {
+                    $(this).addClass('over');
+                })
+                .mouseout(function () {
+                    $(this).removeClass('over');
+                })
+        ;
+        $('.comments-input > textarea')
+                .focus(function () {
+                    $(this).closest('.comments-wrapper').addClass('have-focus')
+                })
+                .blur(function () {
+                    $(this).closest('.comments-wrapper').removeClass('have-focus')
+                })
+                .keydown(function (e) {
+                    if (e.which == 13) {
+                        var comment = $(this).val().trim();
+                        var id = $(this).closest('.component').data('id');
+                        $(this).html('');
+                        $.ajax({
+                            method: 'POST',
+                            url: '/ajax/saveComment/' + id,
+                            data: {
+                                'txt': comment
+                            },
+                            success: function (data) {
+                                $('[data-id='+id+']')
+                                        .find('.comments-wrapper')
+                                        .addClass('have-comments')
+                                ;
+                                $('[data-id='+id+']')
+                                        .find('.comments')
+                                        .html(data)
+                                        .scrollTop(99999)
+                                ;
+                            }
+                        });
+                    }
+                });
+
+    });
+
+    function elementClicked(ob) {
+        if ($('.show.comments').length == 0) {
+            backdropLoader();
+            return true;
+        } else {
+            var $ob = $(ob);
+
+        }
+        return false;
+    }
+</script>

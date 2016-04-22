@@ -122,12 +122,19 @@ class Pokaz extends RouterAbstract
 
 
         $projectId = $this->args->getInt(2);
-        $project = Projekt::get($projectId);
+        if (!Projekt::validId($projectId))
+            return $this->controller->redirect();
 
+        $project = Projekt::get($projectId);
+        if (!$project)
+            return $this->controller->redirect();
 
         $ekranId = $this->args->getInt(3);
         if (empty($ekranId)) $ekranId = Projekt::getDefaultScreenId($projectId);
         $ekran = Ekran::getContent($ekranId);
+
+        if (!$ekran)
+            return $this->controller->redirect();
 
         $nazwaEkranu = Ekran::getName($ekranId);
 
@@ -148,24 +155,43 @@ class Pokaz extends RouterAbstract
                     foreach ($props as $key => $val) {
                         $elem = preg_replace("/(#$key)([^a-zA-Z0-9_])/", "$val\\2", $elem);
                     }
-                    $html .= "<a style=\"position: absolute; " .
-                        "top:{$props[y]}px;left:{$props[x]}px;width:{$props[w]}px;height:{$props[h]}px\"" .
-                        ($props['link'] > 0 ? " onclick='backdropLoader()' href='/pokaz/uruchom/{$projectId}/{$props[link]}' " : '') .
-                        ">$elem</a>";
+
+                    $html .= <<<HREF
+                    <a class="component component_{$kontrolka[name]}"
+                        data-id="{$item[id]}"
+                        style="position: absolute; top:{$props[y]}px;left:{$props[x]}px;width:{$props[w]}px;height:{$props[h]}px"
+HREF;
+                    if ($props['link'] > 0 ) $html .= <<<LINK
+                    onclick="return elementClicked(this)" href="/pokaz/uruchom/{$projectId}/{$props[link]}"
+LINK;
+                    $html .= ">";
+                    $comments = Ekran::getComments($item['id']);
+                    $hasComments = empty($comments) ? '' : 'have-comments';
+                    $html .= <<<COMMENTS
+                            <div style="left:{$props[w]}px" class="comments-wrapper {$hasComments}">
+                                <div class="comments">
+                                    {$comments}
+                                </div>
+                                <div class="comments-input">
+                                    <textarea class="autoheight" rows="1" 
+                                    placeholder="Dodaj komentarz"></textarea>
+                                </div>
+                            </div>
+COMMENTS;
+                    $html .= $elem;
+                    $html .= "</a>";
                 }
             }
         }
 
         $v = $this->view;
         $data = array(
-            'pokazId' => $projectId,
             'pokaz' => $project,
             'ekranId' => $ekranId,
-            'ekran' => $ekran,
             'nazwaEkranu' => $nazwaEkranu,
             'theme' => $theme,
-            'kontrolki' => $kontrolki,
             'html' => $html,
+            'kontrolki' => $kontrolki,
         );
 
         $v->assign($data);

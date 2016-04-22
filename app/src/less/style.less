@@ -6,6 +6,7 @@
 .d2 { background-color: #eee; }
 
 .space { padding: 10px; }
+.mxspace { margin: 5px; }
 .mspace { margin: 20px; }
 .right { text-align: right; }
 .left { text-align: left; }
@@ -130,3 +131,42 @@ tr.border {
         margin-top: 100px;
     }
 }
+
+.comments-wrapper {
+    position: absolute;
+    z-index: 2;
+    width: 150px;
+    min-height: 200px;
+    background: rgba(0,0,0,0.2);
+    visibility: hidden;
+    .comments {
+        height: 160px;
+        background: rgba(255,255,255,0.8);
+        margin: 6px 6px 0;
+        padding: 3px;
+        overflow-y: auto;
+    }
+    .comments-input {
+        padding: 5px;
+        & > textarea {
+            width: 100%;
+            border: 1px solid gray;
+        }
+    }
+
+}
+
+.show.comments .comments-wrapper.have-comments {
+    visibility: visible;
+    z-index: 99998;
+}
+.show.comments .component .comments-wrapper.have-focus  {
+    visibility: visible;
+}
+.show.comments .component.over {
+    z-index: 99999;
+    .comments-wrapper  {
+        visibility: visible;
+    }
+}
+

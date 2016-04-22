@@ -9,7 +9,7 @@
 
 <style type="text/css">
     {foreach from=$kontrolki item="kontrolka"}
-    div.component_{$kontrolka.name|urlencode} {
+    .component_{$kontrolka.name|urlencode} {
         {$kontrolka.css}
     }
     {/foreach}
