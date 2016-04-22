@@ -85,9 +85,6 @@
         if ($('.show.comments').length == 0) {
             backdropLoader();
             return true;
-        } else {
-            var $ob = $(ob);
-
         }
         return false;
     }
