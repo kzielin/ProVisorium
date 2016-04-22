@@ -73,14 +73,14 @@ class Ekran
         if (!self::validComponentInstanceId($id)) return false;
         $login = Db::escape($login);
         $txt = Db::escape($txt);
-        return $db->querySingle("INSERT INTO comments (component_id, login, txt) VALUES ($id, '$login', '$txt')");
+        return $db->querySingle("INSERT INTO annotations (component_id, login, txt) VALUES ($id, '$login', '$txt')");
     }
 
     static function getComments($id)
     {
         $db = Db::getInstance();
         if (!self::validComponentInstanceId($id)) return false;
-        $r = $db->query("SELECT * FROM comments WHERE component_id = $id ORDER BY time");
+        $r = $db->query("SELECT * FROM annotations WHERE component_id = $id ORDER BY time");
         $comments = Db::fetch_all($r);
         $result = '';
         if (is_array($comments)) {
