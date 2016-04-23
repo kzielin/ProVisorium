@@ -155,6 +155,7 @@ class Pokaz extends RouterAbstract
                     foreach ($props as $key => $val) {
                         $elem = preg_replace("/(#$key)([^a-zA-Z0-9_])/", "$val\\2", $elem);
                     }
+                    $elem = preg_replace("/#px/", "px", $elem);
 
                     $html .= <<<HREF
                     <a class="component component_{$kontrolka[name]}"

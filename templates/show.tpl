@@ -1,18 +1,4 @@
-<style type="text/css">
-    {foreach $kontrolki as $kontrolka}
-    .component_{$kontrolka.name|urlencode} {
-    {$kontrolka.css}
-    }
 
-    {/foreach}
-</style>
-<script type="text/javascript">
-    {foreach $kontrolki as $kontrolka}
-    $(".component_{$kontrolka.name|urlencode}").each(function () {
-        {$kontrolka.js}
-    });
-    {/foreach}
-</script>
 
 <div class="ui-corner-all show center">
    <span class="pull-right glyphicon glyphicon-home href space"
@@ -88,4 +74,20 @@
         }
         return false;
     }
+</script>
+
+<style type="text/css">
+    {foreach $kontrolki as $kontrolka}
+    .component_{$kontrolka.name|urlencode} {
+    {$kontrolka.css}
+    }
+
+    {/foreach}
+</style>
+<script type="text/javascript">
+    {foreach $kontrolki as $kontrolka}
+    $(".component_{$kontrolka.name|urlencode}").each(function () {
+        {$kontrolka.js}
+    });
+    {/foreach}
 </script>

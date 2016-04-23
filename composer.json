@@ -24,7 +24,8 @@
         "symfony/yaml": "^3.0",
         "filp/whoops": "^2.1",
         "oyejorge/less.php": "v1.7.0.10",
-        "matthiasmullie/minify": "1.3.34"
+        "matthiasmullie/minify": "1.3.34",
+        "components/font-awesome": "^4.5"
     },
     "scripts": {
         "compile-css": [

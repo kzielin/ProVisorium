@@ -18,6 +18,7 @@
         <link href="/vendor/twitter/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" >
         <script src="/vendor/twitter/bootstrap/dist/js/bootstrap.min.js"></script>
 
+        <link rel="stylesheet" type="text/css" href="/vendor/components/font-awesome/css/font-awesome.min.css"></link>
 
         <link rel="stylesheet" type="text/css" href="/{$config.assets_dir}/css/gray.min.css" />
         <link rel="stylesheet" type="text/css" href="/{$config.assets_dir}/css/style.min.css" />

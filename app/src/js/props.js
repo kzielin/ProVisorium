@@ -250,6 +250,7 @@ function rerenderComponent($ob) {
                 setProp(key, val);
                 newHTML = newHTML.replace(new RegExp('(#' + key + ')([^a-zA-Z0-9_])', "g"), val + "$2");
             });
+            newHTML = newHTML.replace(/#px/, 'px');
             $ob.find('.elementContent').html(newHTML);
         }
     }
